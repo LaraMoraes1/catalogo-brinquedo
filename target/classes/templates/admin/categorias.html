@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Categorias')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header(activePage='admin')}"></header>
+<main class="main-content">
+  <div class="admin-header">
+    <h1>Administracao &rsaquo; Categorias</h1>
+    <a th:href="@{/admin}" class="btn btn-secondary">&#8592; Voltar</a>
+  </div>
+
+  <div class="alert alert-success" th:if="${sucesso}" th:text="${sucesso}"></div>
+  <div class="alert alert-error" th:if="${erro}" th:text="${erro}"></div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+      <tr>
+        <th>Imagem</th>
+        <th>Nome</th>
+        <th>Controles</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="c : ${categorias}">
+        <td>
+          <img th:if="${c.imagem != null}"
+               th:src="@{/imagens/{img}(img=${c.imagem})}"
+               style="height:50px; border-radius:8px; object-fit:contain;"/>
+          <span th:unless="${c.imagem != null}">Sem imagem</span>
+        </td>
+        <td th:text="${c.nome}"></td>
+        <td>
+          <a th:href="@{/admin/categorias/editar/{id}(id=${c.id})}" class="link-edit">Editar imagem</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

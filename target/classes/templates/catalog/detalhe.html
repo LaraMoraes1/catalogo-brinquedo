@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Detalhe')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header(activePage='catalogo')}"></header>
+<main class="main-content">
+    <div class="breadcrumb">
+        <a th:href="@{/}">Home</a> &rsaquo;
+        <a th:href="@{/catalogo}">Catalogo</a> &rsaquo;
+        <a th:href="@{/catalogo/categoria/{id}(id=${brinquedo.categoria.id})}" th:text="${brinquedo.categoria.nome}">Cat</a> &rsaquo;
+        <span th:text="${brinquedo.descricao}">Produto</span>
+    </div>
+    <div class="product-detail">
+        <div class="detail-img">
+            <img th:if="${brinquedo.imagem != null}" th:src="@{/imagens/{img}(img=${brinquedo.imagem})}" th:alt="${brinquedo.descricao}"/>
+            <div th:unless="${brinquedo.imagem != null}" class="product-no-img big">🧸</div>
+        </div>
+        <div class="detail-info">
+            <small class="detail-code" th:text="'Cod: ' + ${brinquedo.codigo}">Cod:</small>
+            <h1 th:text="${brinquedo.descricao}">Nome do Brinquedo</h1>
+            <p class="detail-marca" th:text="'Marca: ' + ${brinquedo.marca}">Marca</p>
+            <p class="detail-price" th:text="'R$ ' + ${#numbers.formatDecimal(brinquedo.valor, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</p>
+            <div class="detail-desc" th:if="${brinquedo.detalhes != null and !brinquedo.detalhes.isBlank()}">
+                <h3>Detalhes do produto:</h3>
+                <p th:text="${brinquedo.detalhes}">Detalhes</p>
+            </div>
+            <a th:href="@{/catalogo/categoria/{id}(id=${brinquedo.categoria.id})}" class="btn btn-secondary">&#8592; Voltar</a>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

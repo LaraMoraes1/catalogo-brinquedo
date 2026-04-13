@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Catalogo')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header(activePage='catalogo')}"></header>
+<main class="main-content">
+    <div class="breadcrumb">
+        <a th:href="@{/}">Home</a> &rsaquo; Catalogo de Brinquedos
+    </div>
+    <div class="page-banner">
+        <h1>Catalogo de Brinquedos</h1>
+        <p>Escolha uma categoria</p>
+    </div>
+    <div class="category-grid large" th:unless="${#lists.isEmpty(categorias)}">
+        <a class="category-card" th:each="c : ${categorias}" th:href="@{/catalogo/categoria/{id}(id=${c.id})}">
+            <div class="cat-img-wrap">
+                <img th:if="${c.imagem != null}" th:src="@{/imagens/{img}(img=${c.imagem})}" th:alt="${c.nome}"/>
+                <div th:unless="${c.imagem != null}" class="cat-no-img">📦</div>
+            </div>
+            <span th:text="${c.nome}">Categoria</span>
+        </a>
+    </div>
+    <div th:if="${#lists.isEmpty(categorias)}" class="empty-state">
+        <span>📦</span><p>Nenhuma categoria cadastrada ainda.</p>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

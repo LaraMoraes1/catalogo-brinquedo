@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Sobre a Equipe')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header(activePage='sobre')}"></header>
+<main class="main-content">
+    <div class="team-grid">
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto1.jpeg" alt="Integrante 1"/>
+            </div>
+            <h3>Lara de Moraes Nascimento </h3>
+            <p class="team-rgm">RGM: 38646242</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto2.jpeg" alt="Integrante 2"/>
+            </div>
+            <h3>Marcelo Antônio Santana de Melo</h3>
+            <p class="team-rgm">RGM: 38524996</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto3.jpeg" alt="Integrante 3"/>
+            </div>
+            <h3>Diego de Souza Almeida 3</h3>
+            <p class="team-rgm">RGM: 38587220</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto4.jpeg" alt="Integrante 4"/>
+            </div>
+            <h3>Dery Vidal Condori Apoma </h3>
+            <p class="team-rgm">RGM: 38691787</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto5.jpeg" alt="Integrante 5"/>
+            </div>
+            <h3>Leandro Aquiles David De Araujo </h3>
+            <p class="team-rgm">RGM: 38592312</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto6.jpeg" alt="Integrante 6"/>
+            </div>
+            <h3>Paola Valenti Marques </h3>
+            <p class="team-rgm">RGM: 37117220</p>
+        </div>
+        <div class="team-card">
+            <div class="team-avatar">
+                <img src="/images/foto7.jpeg" alt="Integrante 7"/>
+            </div>
+            <h3>Riccardo Kenji Fabbri Arakaki </h3>
+            <p class="team-rgm">RGM:  38920760</p>
+        </div>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

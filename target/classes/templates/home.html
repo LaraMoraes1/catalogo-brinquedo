@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Home')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header(activePage='home')}"></header>
+
+<main class="main-content">
+    <div class="page-banner">
+        <h1>Brinquedos em Destaque</h1>
+        <p>Os queridinhos da semana!</p>
+    </div>
+
+    <div th:if="${#lists.isEmpty(destaques)}" class="empty-state">
+        <span>🎠</span>
+        <p>Nenhum brinquedo em destaque ainda.</p>
+        <a th:href="@{/admin/novo}" class="btn btn-primary">Cadastrar brinquedo</a>
+    </div>
+
+    <div class="product-grid" th:unless="${#lists.isEmpty(destaques)}">
+        <div class="product-card" th:each="b : ${destaques}">
+            <a th:href="@{/catalogo/brinquedo/{id}(id=${b.id})}">
+                <div class="product-img-wrap">
+                    <img th:if="${b.imagem != null}" th:src="@{/imagens/{img}(img=${b.imagem})}" th:alt="${b.descricao}"/>
+                    <div th:unless="${b.imagem != null}" class="product-no-img">🧸</div>
+                </div>
+                <div class="product-info">
+                    <h3 th:text="${b.descricao}">Descricao</h3>
+                    <span class="category-tag" th:text="${b.categoria.nome}">Categoria</span>
+                    <p class="price" th:text="'R$ ' + ${#numbers.formatDecimal(b.valor, 1, 'POINT', 2, 'COMMA')}">R$ 0,00</p>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="section-title"><h2>Categorias</h2></div>
+    <div class="category-grid">
+        <a class="category-card" th:each="c : ${categorias}" th:href="@{/catalogo/categoria/{id}(id=${c.id})}">
+            <div class="cat-img-wrap">
+                <img th:if="${c.imagem != null}" th:src="@{/imagens/{img}(img=${c.imagem})}" th:alt="${c.nome}"/>
+                <div th:unless="${c.imagem != null}" class="cat-no-img">📦</div>
+            </div>
+            <span th:text="${c.nome}">Categoria</span>
+        </a>
+    </div>
+    <div th:if="${#lists.isEmpty(categorias)}" class="empty-state">
+        <span>📦</span><p>Nenhuma categoria cadastrada ainda.</p>
+    </div>
+</main>
+
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>

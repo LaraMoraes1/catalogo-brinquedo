@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Formulario')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: header(activePage='admin')}"></header>
+<main class="main-content">
+    <div class="breadcrumb">
+        <a th:href="@{/admin}">Administracao</a> &rsaquo;
+        <span th:text="${editando} ? 'Editar Brinquedo' : 'Novo Brinquedo'">Formulario</span>
+    </div>
+    <div class="form-card">
+        <h1 th:text="${editando} ? 'Editar Brinquedo' : 'Novo Brinquedo'">Formulario</h1>
+        <form th:action="${editando} ? @{/admin/editar/{id}(id=${brinquedo.id})} : @{/admin/novo}"
+              th:object="${brinquedo}"
+              method="post"
+              enctype="multipart/form-data">
+
+            <div class="form-group">
+                <label for="codigo">CODIGO</label>
+                <input type="text" id="codigo" th:field="*{codigo}"
+                       th:readonly="${editando}"
+                       th:classappend="${editando} ? ' readonly-field' : ''"/>
+                <span class="field-error" th:errors="*{codigo}" th:if="${#fields.hasErrors('codigo')}"></span>
+            </div>
+            <div class="form-group">
+                <label for="descricao">DESCRICAO</label>
+                <input type="text" id="descricao" th:field="*{descricao}"/>
+                <span class="field-error" th:errors="*{descricao}" th:if="${#fields.hasErrors('descricao')}"></span>
+            </div>
+            <div class="form-group">
+                <label for="cat">CATEGORIA</label>
+                <select id="cat" th:field="*{categoria.id}">
+                    <option value="">Selecione uma categoria...</option>
+                    <option th:each="c : ${categorias}" th:value="${c.id}" th:text="${c.nome}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="marca">MARCA</label>
+                <input type="text" id="marca" th:field="*{marca}"/>
+                <span class="field-error" th:errors="*{marca}" th:if="${#fields.hasErrors('marca')}"></span>
+            </div>
+            <div class="form-group">
+                <label for="arquivoImagem">IMAGEM</label>
+                <input type="file" id="arquivoImagem" name="arquivoImagem" accept="image/*"/>
+                <img th:if="${brinquedo.imagem != null}"
+                     th:src="@{/imagens/{img}(img=${brinquedo.imagem})}"
+                     alt="Imagem atual"
+                     style="max-height:80px;margin-top:8px;border-radius:8px;"/>
+            </div>
+            <div class="form-group">
+                <label for="valor">VALOR (R$)</label>
+                <input type="number" id="valor" th:field="*{valor}" step="0.01" min="0.01"/>
+                <span class="field-error" th:errors="*{valor}" th:if="${#fields.hasErrors('valor')}"></span>
+            </div>
+            <div class="form-group">
+                <label for="detalhes">DETALHES</label>
+                <textarea id="detalhes" th:field="*{detalhes}" rows="5" placeholder="Escreva aqui os detalhes do brinquedo..."></textarea>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" id="destaque" th:field="*{destaque}"/>
+                <label for="destaque">Exibir na pagina inicial (Destaque)</label>
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary"
+                        th:text="${editando} ? 'SALVAR EDICAO' : 'SALVAR DADOS'">Salvar</button>
+                <a th:href="@{/admin}" class="btn btn-secondary">Cancelar</a>
+            </div>
+        </form>
+    </div>
+</main>
+<footer th:replace="~{fragments/layout :: footer}"></footer>
+<script th:src="@{/static/js/main.js}"></script>
+</body>
+</html>
