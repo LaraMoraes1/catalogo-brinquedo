@@ -25,7 +25,7 @@
                 <label>IMAGEM ATUAL</label>
                 <div>
                     <img th:if="${categoria.imagem != null}"
-                         th:src="@{/imagens/{img}(img=${categoria.imagem})}"
+                         th:src=th:src="${b.imagem}"
                          style="max-height:120px; border-radius:10px; object-fit:contain;"/>
                     <span th:unless="${categoria.imagem != null}">Nenhuma imagem cadastrada</span>
                 </div>

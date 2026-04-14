@@ -36,7 +36,7 @@
     <div class="category-grid">
         <a class="category-card" th:each="c : ${categorias}" th:href="@{/catalogo/categoria/{id}(id=${c.id})}">
             <div class="cat-img-wrap">
-                <img th:if="${c.imagem != null}" th:src="@{/imagens/{img}(img=${c.imagem})}" th:alt="${c.nome}"/>
+                <img th:if="${c.imagem != null}" th:src=th:src="${b.imagem}" th:alt="${c.nome}"/>
                 <div th:unless="${c.imagem != null}" class="cat-no-img">📦</div>
             </div>
             <span th:text="${c.nome}">Categoria</span>

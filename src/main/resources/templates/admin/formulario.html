@@ -43,7 +43,7 @@
                 <label for="arquivoImagem">IMAGEM</label>
                 <input type="file" id="arquivoImagem" name="arquivoImagem" accept="image/*"/>
                 <img th:if="${brinquedo.imagem != null}"
-                     th:src="@{/imagens/{img}(img=${brinquedo.imagem})}"
+                     th:src=th:src="${b.imagem}"
                      alt="Imagem atual"
                      style="max-height:80px;margin-top:8px;border-radius:8px;"/>
             </div>

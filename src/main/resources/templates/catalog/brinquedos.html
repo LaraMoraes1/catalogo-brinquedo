@@ -16,7 +16,7 @@
         <div class="product-card" th:each="b : ${brinquedos}">
             <a th:href="@{/catalogo/brinquedo/{id}(id=${b.id})}">
                 <div class="product-img-wrap">
-                    <img th:if="${b.imagem != null}" th:src="@{/imagens/{img}(img=${b.imagem})}" th:alt="${b.descricao}"/>
+                    <img th:if="${b.imagem != null}" th:src=th:src="${b.imagem}" th:alt="${b.descricao}"/>
                     <div th:unless="${b.imagem != null}" class="product-no-img">🧸</div>
                 </div>
                 <div class="product-info">

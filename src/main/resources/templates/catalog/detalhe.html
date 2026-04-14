@@ -12,7 +12,7 @@
     </div>
     <div class="product-detail">
         <div class="detail-img">
-            <img th:if="${brinquedo.imagem != null}" th:src="@{/imagens/{img}(img=${brinquedo.imagem})}" th:alt="${brinquedo.descricao}"/>
+            <img th:if="${brinquedo.imagem != null}" th:src=th:src="${b.imagem}" th:alt="${brinquedo.descricao}"/>
             <div th:unless="${brinquedo.imagem != null}" class="product-no-img big">🧸</div>
         </div>
         <div class="detail-info">
