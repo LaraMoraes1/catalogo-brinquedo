@@ -14,18 +14,12 @@
         <form th:action="@{/admin/categorias/editar/{id}(id=${categoria.id})}"
               method="post"
               enctype="multipart/form-data">
-            <form th:action="@{/admin/categorias/editar/{id}(id=${categoria.id})}"
-                  method="post"
-                  enctype="multipart/form-data">
-
-                <input type="hidden" name="nome" th:value="${categoria.nome}"/>
-                <input type="hidden" name="id" th:value="${categoria.id}"/>
 
             <div class="form-group">
                 <label>IMAGEM ATUAL</label>
                 <div>
                     <img th:if="${categoria.imagem != null}"
-                         th:src=th:src="${b.imagem}"
+                         th:src="@{/imagens/{img}(img=${categoria.imagem})}"
                          style="max-height:120px; border-radius:10px; object-fit:contain;"/>
                     <span th:unless="${categoria.imagem != null}">Nenhuma imagem cadastrada</span>
                 </div>

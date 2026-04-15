@@ -1,43 +1,37 @@
 package com.catalogo.brinquedos.service;
 
-import com.cloudinary.Cloudinary;
-import com.cloudinary.utils.ObjectUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.Map;
+import java.nio.file.*;
+import java.util.UUID;
 
 @Service
 public class FileStorageService {
 
-    private final Cloudinary cloudinary;
-
-    public FileStorageService(Cloudinary cloudinary) {
-        this.cloudinary = cloudinary;
-    }
+    @Value("${app.upload.dir:uploads/}")
+    private String uploadDir;
 
     public String salvarImagem(MultipartFile arquivo) throws IOException {
         if (arquivo == null || arquivo.isEmpty()) return null;
-
-        Map uploadResult = cloudinary.uploader().upload(
-                arquivo.getBytes(),
-                ObjectUtils.asMap("folder", "catalogo-brinquedos")
-        );
-
-        return uploadResult.get("secure_url").toString();
+        Path pastaUpload = Paths.get(uploadDir);
+        if (!Files.exists(pastaUpload)) {
+            Files.createDirectories(pastaUpload);
+        }
+        String nomeArquivo = UUID.randomUUID() + "_" + arquivo.getOriginalFilename();
+        Path destino = pastaUpload.resolve(nomeArquivo);
+        Files.copy(arquivo.getInputStream(), destino, StandardCopyOption.REPLACE_EXISTING);
+        return nomeArquivo;
     }
 
-    public void deletarImagem(String url) {
-        if (url == null || url.isBlank()) return;
+    public void deletarImagem(String nomeArquivo) {
+        if (nomeArquivo == null || nomeArquivo.isBlank()) return;
         try {
-            // Extrai o public_id da URL
-            String publicId = url.substring(url.lastIndexOf("/catalogo-brinquedos/") + 1)
-                    .replace(".jpg", "")
-                    .replace(".jpeg", "")
-                    .replace(".png", "");
-            cloudinary.uploader().destroy("catalogo-brinquedos/" + publicId, ObjectUtils.emptyMap());
-        } catch (Exception e) {
-            // ignora erro ao deletar
+            Path arquivo = Paths.get(uploadDir).resolve(nomeArquivo);
+            Files.deleteIfExists(arquivo);
+        } catch (IOException e) {
+            // ignorado
         }
     }
 }

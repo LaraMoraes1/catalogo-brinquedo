@@ -25,7 +25,7 @@
       <tr th:each="c : ${categorias}">
         <td>
           <img th:if="${c.imagem != null}"
-               th:src=th:src="${b.imagem}"
+               th:src="@{/imagens/{img}(img=${c.imagem})}"
                style="height:50px; border-radius:8px; object-fit:contain;"/>
           <span th:unless="${c.imagem != null}">Sem imagem</span>
         </td>

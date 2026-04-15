@@ -14,12 +14,6 @@
         <form th:action="@{/admin/categorias/editar/{id}(id=${categoria.id})}"
               method="post"
               enctype="multipart/form-data">
-            <form th:action="@{/admin/categorias/editar/{id}(id=${categoria.id})}"
-                  method="post"
-                  enctype="multipart/form-data">
-
-                <input type="hidden" name="nome" th:value="${categoria.nome}"/>
-                <input type="hidden" name="id" th:value="${categoria.id}"/>
 
             <div class="form-group">
                 <label>IMAGEM ATUAL</label>
